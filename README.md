@@ -1,1 +1,1 @@
-# matching-service
+# targeting-service
