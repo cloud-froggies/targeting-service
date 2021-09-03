@@ -14,7 +14,7 @@ DB_ADMIN_PASSWORD = os.environ.get('db_admin_password')
 DB_NAME = os.environ.get('db_name')
 
 
-app = FastAPI(title='Matching Service',version='0.1')
+app = FastAPI(title='Targeting Service',version='0.1')
 gunicorn_logger = logging.getLogger('gunicorn.error')
 logger.handlers = gunicorn_logger.handlers
 logger.setLevel(gunicorn_logger.level)
@@ -38,7 +38,7 @@ def get_db_conn():
 
 @app.get("/")
 def read_root():
-    return {"Service": "matching"}
+    return {"Service": "targeting"}
 
 
 @app.get("/targeting")
@@ -62,7 +62,7 @@ def read_matching(advertiser_campaigns:str,zip_code:int):
         cursor.execute(query,(campaigns,zip_code,campaigns))
 
     if (results := cursor.fetchall()):
-        return results
+        return [dct['id'] for dct in results]
     else:
         raise HTTPException(status_code=404, detail= f'No se encontraron campañas para la el zip code {zip_code}') 
 
