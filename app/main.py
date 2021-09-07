@@ -45,7 +45,9 @@ def read_root():
 def read_matching(advertiser_campaigns:str,zip_code:int):
     campaigns = [int(i) for i in advertiser_campaigns.split(",")]
     conn = get_db_conn()
-    logger.error(advertiser_campaigns,zip_code)
+    logger.error(advertiser_campaigns)
+    logger.error(zip_code)
+
     with conn.cursor(pymysql.cursors.DictCursor) as cursor:
         query = """SELECT campaign_id AS id
         FROM campaign_targeting
